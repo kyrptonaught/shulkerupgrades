@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "upgradedshulkers",
+  "version": "0.0.1-Beta8-1.16",
+  "name": "Upgraded Shulkers",
+  "description": "Pick Block inside shulkers",
+  "authors": [
+    "kyrptonaught"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/ridable-ender-pearls",
+    "sources": "https://github.com/kyrptonaught/ridablepearls"
+  },
+  "license": "MIT",
+  "icon": "assets/ridablepearl/icon.png",
+  "environment": "*",
+  "mixins": [
+    {
+      "config": "net.kyrptonaught.upgradedshulkers.mixins.json",
+      "environment": "*"
+    }
+  ],
+  "entrypoints": {
+    "main": [
+      "net.kyrptonaught.upgradedshulker.UpgradedShulkerMod"
+    ],
+    "client": [
+      "net.kyrptonaught.upgradedshulker.client.UpgradedShulkerClientMod"
+    ],
+    "quickshulker":[
+      "net.kyrptonaught.upgradedshulker.UpgradedShulkerMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}

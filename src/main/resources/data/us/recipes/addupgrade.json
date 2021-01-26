@@ -1,0 +1,12 @@
+{
+  "type": "upgradedshulkers:add_upgrade_recipe",
+  "base": {
+    "tag": "us:shulkers"
+  },
+  "addition": {
+    "tag": "us:shulkerupgradeitems"
+  },
+  "result": {
+    "item": "us:normalironshulker"
+  }
+}

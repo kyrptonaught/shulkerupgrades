@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.kyrptonaught.upgradedshulker.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockEntityTypeAccessor",
+    "DispenserMixin",
+    "ItemEntityMixin",
+    "ShulkerBoxBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

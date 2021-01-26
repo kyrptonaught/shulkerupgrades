@@ -1,0 +1,12 @@
+{
+  "type": "upgradedshulkers:keep_color_recipe",
+  "base": {
+    "tag": "us:diamond_shulkers"
+  },
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "result": {
+    "item": "us:normalnetheriteshulker"
+  }
+}

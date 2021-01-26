@@ -1,0 +1,22 @@
+{
+  "type": "upgradedshulkers:copy_upgrade_recipe",
+  "pattern": [
+    "ISI",
+    "IBI",
+    "ISI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "tag": "minecraft:shulker_boxes"
+    },
+    "S": {
+      "item": "minecraft:shulker_shell"
+    }
+  },
+  "result": {
+    "item": "us:normalironshulker"
+  }
+}

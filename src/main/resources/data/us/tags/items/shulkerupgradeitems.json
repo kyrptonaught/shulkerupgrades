@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:hopper",
+    "minecraft:lava_bucket"
+  ]
+}

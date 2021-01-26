@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:shulker_boxes",
+    "#us:iron_shulkers",
+    "#us:gold_shulkers",
+    "#us:diamond_shulkers",
+    "#us:netherite_shulkers"
+  ]
+}

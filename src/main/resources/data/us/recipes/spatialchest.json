@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CPC",
+    "CEC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "E": {
+      "item": "minecraft:ender_chest"
+    },
+    "P": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "us:spatialchest"
+  }
+}

@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
 import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +16,7 @@ public class DispenserMixin {
 
     @Inject(method = "getBehaviorForItem", at = @At(value = "HEAD"), cancellable = true)
     public void upgradedShulkerBehavior(ItemStack stack, CallbackInfoReturnable<DispenserBehavior> cir) {
-        if (Block.getBlockFromItem(stack.getItem())instanceof UpgradedShulkerBlock)
+        if (Block.getBlockFromItem(stack.getItem()) instanceof UpgradedShulkerBlock)
             cir.setReturnValue(new BlockPlacementDispenserBehavior());
     }
 }

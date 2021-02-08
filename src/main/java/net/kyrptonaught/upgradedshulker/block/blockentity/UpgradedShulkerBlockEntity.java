@@ -1,9 +1,9 @@
 package net.kyrptonaught.upgradedshulker.block.blockentity;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.kyrptonaught.upgradedshulker.mixin.BlockEntityTypeAccessor;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
-import net.kyrptonaught.upgradedshulker.mixin.BlockEntityTypeAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

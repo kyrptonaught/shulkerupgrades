@@ -1,9 +1,9 @@
 package net.kyrptonaught.upgradedshulker.recipe;
 
 import com.google.gson.JsonObject;
+import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
-import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

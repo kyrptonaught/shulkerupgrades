@@ -1,10 +1,9 @@
 package net.kyrptonaught.upgradedshulker.recipe;
 
 
-import net.kyrptonaught.shulkerutils.ShulkerUtils;
-import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
+import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.DyeItem;
@@ -23,7 +22,7 @@ public class DyeShulkerRecipe extends SpecialCraftingRecipe {
     public boolean matches(CraftingInventory inv, World world) {
         int shulkers = 0, dye = 0;
         for (int i = 0; i < inv.size(); i++)
-            if (Block.getBlockFromItem(inv.getStack(i).getItem())instanceof UpgradedShulkerBlock)
+            if (Block.getBlockFromItem(inv.getStack(i).getItem()) instanceof UpgradedShulkerBlock)
                 shulkers++;
             else if (inv.getStack(i).getItem() instanceof DyeItem)
                 dye++;
@@ -35,7 +34,7 @@ public class DyeShulkerRecipe extends SpecialCraftingRecipe {
         ItemStack shulkerStack = ItemStack.EMPTY;
         ItemStack dyeStack = ItemStack.EMPTY;
         for (int i = 0; i < inv.size(); i++)
-            if (Block.getBlockFromItem(inv.getStack(i).getItem())instanceof UpgradedShulkerBlock)
+            if (Block.getBlockFromItem(inv.getStack(i).getItem()) instanceof UpgradedShulkerBlock)
                 shulkerStack = inv.getStack(i);
             else if (inv.getStack(i).getItem() instanceof DyeItem)
                 dyeStack = inv.getStack(i);

@@ -3,7 +3,6 @@ package net.kyrptonaught.upgradedshulker.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
-import net.kyrptonaught.upgradedshulker.client.UpgradedShulkerClientMod;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.render.RenderLayer;

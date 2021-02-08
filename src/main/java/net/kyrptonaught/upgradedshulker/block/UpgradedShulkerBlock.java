@@ -3,11 +3,11 @@ package net.kyrptonaught.upgradedshulker.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.kyrptonaught.shulkerutils.UpgradableShulker;
+import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
+import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
+import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreenHandler;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.UpgradedShulker;
-import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
-import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreenHandler;
-import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -42,13 +42,13 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
 
     public UpgradedShulkerBlock(ShulkerUpgrades.MATERIAL upgradedshulkertype, DyeColor color, Settings blockSettings) {
         super(color, blockSettings);
+        this.material = upgradedshulkertype;
         String colorName = color != null ? color.getName() : "normal";
         Registry.register(Registry.BLOCK, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), this);
 
         Item.Settings itemSettings = new Item.Settings().maxCount(1).group(UpgradedShulkerMod.GROUP);
         if (material == ShulkerUpgrades.MATERIAL.NETHERITE) itemSettings = itemSettings.fireproof();
         Registry.register(Registry.ITEM, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), new BlockItem(this, itemSettings));
-        this.material = upgradedshulkertype;
     }
 
     public BlockEntity createBlockEntity(BlockView world) {

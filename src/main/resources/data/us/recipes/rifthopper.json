@@ -1,0 +1,12 @@
+{
+  "type": "upgradedshulkers:add_upgrade_recipe",
+  "base": {
+    "item": "us:riftchest"
+  },
+  "addition": {
+    "item": "minecraft:hopper"
+  },
+  "result": {
+    "item": "us:riftchest"
+  }
+}

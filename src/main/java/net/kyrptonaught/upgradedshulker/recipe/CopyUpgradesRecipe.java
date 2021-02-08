@@ -1,11 +1,12 @@
 package net.kyrptonaught.upgradedshulker.recipe;
 
 import com.google.gson.JsonObject;
-import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
-import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
+import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
+import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -24,7 +25,7 @@ public class CopyUpgradesRecipe extends ShapedRecipe {
         ItemStack output = this.getOutput().copy();
         ItemStack shulker = craftingInventory.getStack(4);
         ShulkerUpgrades.MATERIAL type = ((UpgradedShulkerBlock) Block.getBlockFromItem(output.getItem())).material;
-        DyeColor color = ((UpgradedShulkerBlock) Block.getBlockFromItem(shulker.getItem())).getColor();
+        DyeColor color = ((ShulkerBoxBlock) Block.getBlockFromItem(shulker.getItem())).getColor();
         output = ShulkersRegistry.getShulkerBlock(type, color).asItem().getDefaultStack();
         if (shulker.hasTag())
             output.setTag(shulker.getTag());

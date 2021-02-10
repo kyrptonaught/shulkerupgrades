@@ -5,7 +5,8 @@ import net.fabricmc.api.Environment;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.blockentity.SpatialEChestBlockEntity;
 import net.kyrptonaught.upgradedshulker.client.UpgradedShulkerClientMod;
-import net.kyrptonaught.upgradedshulker.util.SpatialEChestInventory;
+import net.kyrptonaught.upgradedshulker.inv.SpatialEChestInventory;
+import net.kyrptonaught.upgradedshulker.util.ContainerNames;
 import net.kyrptonaught.upgradedshulker.util.SpatialInvStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -87,7 +88,7 @@ public class SpatialEChest extends EnderChestBlock {
                 inv.setActiveBlockEntity((SpatialEChestBlockEntity) entity);
                 player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
                     return GenericContainerScreenHandler.createGeneric9x6(i, playerInventory, inv);
-                }, new LiteralText("Spatial Storage")));
+                }, ContainerNames.SPATIAL_CHEST));
 
                 return ActionResult.CONSUME;
             }

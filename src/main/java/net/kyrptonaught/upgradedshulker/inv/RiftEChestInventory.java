@@ -1,6 +1,7 @@
-package net.kyrptonaught.upgradedshulker.util;
+package net.kyrptonaught.upgradedshulker.inv;
 
 import net.kyrptonaught.upgradedshulker.block.blockentity.OpenableBlockEntity;
+import net.kyrptonaught.upgradedshulker.block.blockentity.RiftChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.SidedInventory;
@@ -13,9 +14,9 @@ import java.util.stream.IntStream;
 
 public class RiftEChestInventory extends SimpleInventory implements SidedInventory {
     EnderChestInventory enderChestInventory;
-    private OpenableBlockEntity activeBlockEntity;
+    public RiftChestBlockEntity activeBlockEntity;
 
-    public RiftEChestInventory(EnderChestInventory enderChestInventory, OpenableBlockEntity activeBlockEntity) {
+    public RiftEChestInventory(EnderChestInventory enderChestInventory, RiftChestBlockEntity activeBlockEntity) {
         super(0);
         this.enderChestInventory = enderChestInventory;
         this.activeBlockEntity = activeBlockEntity;

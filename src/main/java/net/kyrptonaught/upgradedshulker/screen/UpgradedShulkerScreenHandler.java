@@ -22,7 +22,7 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
     private final int rows, columns;
 
     public UpgradedShulkerScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        this(UpgradedShulkerMod.LINKED_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory);
+        this(UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory);
     }
 
     public UpgradedShulkerScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
@@ -130,6 +130,6 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
 
     @Override
     public ScreenHandlerType<?> getType() {
-        return UpgradedShulkerMod.LINKED_SCREEN_HANDLER_TYPE;
+        return UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE;
     }
 }

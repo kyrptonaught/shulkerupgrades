@@ -20,6 +20,7 @@ public class AddUpgradeRecipe extends SmithingRecipe {
 
     public ItemStack craft(Inventory inv) {
         ItemStack output = inv.getStack(0).copy();
+        output.setCount(1);
         for (ShulkerUpgrades.UPGRADES upgrade : ShulkerUpgrades.UPGRADES.values())
             if (upgrade.craftingItem.equals(inv.getStack(1).getItem()))
                 return upgrade.putOnStack(output);

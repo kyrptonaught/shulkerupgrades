@@ -27,7 +27,7 @@ public class EntityExplosionBehaviorMixin {
 
     @Inject(method = "getBlastResistance", at = @At("HEAD"), cancellable = true)
     public void chargedCreeperRiftRecipe(Explosion explosion, BlockView world, BlockPos pos, BlockState blockState, FluidState fluidState, CallbackInfoReturnable<Optional<Float>> cir) {
-        if (entity instanceof CreeperEntity && ((CreeperEntity) entity).shouldRenderOverlay()) {//apparantly shouldRenderOverlay means charged creeper for some reason
+        if (entity != null && entity instanceof CreeperEntity && ((CreeperEntity) entity).shouldRenderOverlay()) {//apparantly shouldRenderOverlay means charged creeper for some reason
             if (blockState.getBlock() instanceof SpatialEChest)
                 cir.setReturnValue(Optional.of(0f));
         }

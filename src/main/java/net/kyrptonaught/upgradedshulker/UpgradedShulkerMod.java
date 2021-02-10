@@ -2,9 +2,11 @@ package net.kyrptonaught.upgradedshulker;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.kyrptonaught.upgradedshulker.block.RiftEChest;
 import net.kyrptonaught.upgradedshulker.block.SpatialEChest;
+import net.kyrptonaught.upgradedshulker.inv.RiftEChestInventory;
 import net.kyrptonaught.upgradedshulker.recipe.AddUpgradeRecipe;
 import net.kyrptonaught.upgradedshulker.recipe.CopyUpgradesRecipe;
 import net.kyrptonaught.upgradedshulker.recipe.DyeShulkerRecipe;
@@ -14,18 +16,21 @@ import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class UpgradedShulkerMod implements ModInitializer {
     public static final String MOD_ID = "upgradedshulkers";
     public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_ID, "shulkers"), () -> new ItemStack(ShulkersRegistry.upgradedShulkerBlocks.get(ShulkerUpgrades.MATERIAL.NETHERITE)));
-    public static final ScreenHandlerType<UpgradedShulkerScreenHandler> LINKED_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(new Identifier(MOD_ID, "upgradedshulker"), UpgradedShulkerScreenHandler::new);
+    public static final ScreenHandlerType<UpgradedShulkerScreenHandler> US_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(new Identifier(MOD_ID, "upgradedshulker"), UpgradedShulkerScreenHandler::new);
 
     public static RecipeSerializer<CopyUpgradesRecipe> copyDyeRecipe;
     public static RecipeSerializer<KeepColorSmithing> colorSmithingRecipe;
@@ -45,5 +50,18 @@ public class UpgradedShulkerMod implements ModInitializer {
         colorSmithingRecipe = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(MOD_ID, "keep_color_recipe"), new KeepColorSmithing.Serializer());
         addUpgradeRecipe = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(MOD_ID, "add_upgrade_recipe"), new AddUpgradeRecipe.Serializer());
         dyeShulkerRecipe = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(MOD_ID, "dye_shulker_recipe"), new SpecialRecipeSerializer<>(DyeShulkerRecipe::new));
+
+        ServerPlayConnectionEvents.DISCONNECT.register((serverPlayNetworkHandler, minecraftServer) -> {
+            minecraftServer.getPlayerManager().getPlayerList().forEach(playerEntity -> {
+                if (playerEntity.currentScreenHandler instanceof GenericContainerScreenHandler) {
+                    Inventory inv = ((GenericContainerScreenHandler) playerEntity.currentScreenHandler).getInventory();
+                    if (inv instanceof RiftEChestInventory)
+                        if (((RiftEChestInventory) inv).activeBlockEntity.storedPlayer.equals(serverPlayNetworkHandler.player.getUuid())) {
+                            playerEntity.closeHandledScreen();
+                            playerEntity.sendMessage(new LiteralText("Bound player must be online to use"), true);
+                        }
+                }
+            });
+        });
     }
 }

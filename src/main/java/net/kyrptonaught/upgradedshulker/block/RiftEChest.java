@@ -5,7 +5,8 @@ import net.fabricmc.api.Environment;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.blockentity.RiftChestBlockEntity;
 import net.kyrptonaught.upgradedshulker.client.UpgradedShulkerClientMod;
-import net.kyrptonaught.upgradedshulker.util.RiftEChestInventory;
+import net.kyrptonaught.upgradedshulker.inv.RiftEChestInventory;
+import net.kyrptonaught.upgradedshulker.util.ContainerNames;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,7 +36,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -93,10 +93,10 @@ public class RiftEChest extends EnderChestBlock implements InventoryProvider {
                 RiftEChestInventory inv = ((RiftChestBlockEntity) entity).getEChestInv((ServerWorld) world);
                 if (inv == null) player.sendMessage(new LiteralText("Bound player must be online to use"), true);
                 else {
+                    // player.openHandledScreen(RiftScreenHandler.createScreenHandlerFactory(inv, new LiteralText("Rift Ender Chest: ").append(((RiftChestBlockEntity) entity).getPlayerName((ServerWorld) world))));
                     player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
                         return GenericContainerScreenHandler.createGeneric9x3(i, playerInventory, inv);
-                    }, new LiteralText("Rift Ender Chest: ").append(((RiftChestBlockEntity) entity).getPlayerName((ServerWorld) world))));
-
+                    }, ContainerNames.getRiftChestName(((RiftChestBlockEntity) entity).getPlayerName((ServerWorld) world))));
                     return ActionResult.CONSUME;
                 }
             }

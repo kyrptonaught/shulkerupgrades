@@ -1,4 +1,4 @@
-package net.kyrptonaught.upgradedshulker.util;
+package net.kyrptonaught.upgradedshulker.inv;
 
 import net.kyrptonaught.upgradedshulker.block.blockentity.SpatialEChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

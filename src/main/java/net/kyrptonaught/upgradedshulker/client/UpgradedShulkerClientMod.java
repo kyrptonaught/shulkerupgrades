@@ -18,6 +18,7 @@ import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEn
 import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreen;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
+import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
@@ -40,7 +41,7 @@ public class UpgradedShulkerClientMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ScreenRegistry.register(UpgradedShulkerMod.LINKED_SCREEN_HANDLER_TYPE, UpgradedShulkerScreen::new);
+        ScreenRegistry.register(UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE, UpgradedShulkerScreen::new);
         for (ShulkerUpgrades.MATERIAL type : ShulkerUpgrades.MATERIAL.values()) {
             registerShulkerWith(null, type);
             BlockEntityRendererRegistry.INSTANCE.register(ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE, UpgradedShulkerBoxRenderer::new);

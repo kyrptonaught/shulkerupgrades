@@ -2,7 +2,7 @@ package net.kyrptonaught.upgradedshulker.block.blockentity;
 
 
 import net.kyrptonaught.upgradedshulker.block.RiftEChest;
-import net.kyrptonaught.upgradedshulker.util.RiftEChestInventory;
+import net.kyrptonaught.upgradedshulker.inv.RiftEChestInventory;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +17,7 @@ public class RiftChestBlockEntity extends OpenableBlockEntity {
         super(RiftEChest.blockEntity);
     }
 
-    private UUID storedPlayer;
+    public UUID storedPlayer;
     private CompoundTag upgrades;
 
     public void appendUpgrades(CompoundTag tag) {
@@ -43,13 +43,13 @@ public class RiftChestBlockEntity extends OpenableBlockEntity {
 
     public RiftEChestInventory getEChestInv(ServerWorld world) {
         if (!hasStoredPlayer()) return null;
-        PlayerEntity player = world.getPlayerByUuid(storedPlayer);
+        PlayerEntity player =  world.getServer().getPlayerManager().getPlayer(storedPlayer);
         if (player == null) return null;
         return new RiftEChestInventory(player.getEnderChestInventory(), this);
     }
 
     public Text getPlayerName(ServerWorld world) {
-        PlayerEntity player = world.getPlayerByUuid(storedPlayer);
+        PlayerEntity player =  world.getServer().getPlayerManager().getPlayer(storedPlayer);
         if (player == null) return null;
         return player.getName();
     }

@@ -76,5 +76,7 @@
   "block.us.graydiamondshulker": "Diamond Gray Shulker Box",
   "block.us.normalironshulker": "Iron Shulker Box",
   "block.us.spatialchest": "Spatial Ender Chest",
-  "block.us.riftchest": "Rift Ender Chest"
+  "block.us.riftchest": "Rift Ender Chest",
+  "upgradedshulkers.containername.spatialchest" : "Spatial Chest",
+  "upgradedshulkers.containername.riftchest" : "Rift Chest: "
 }

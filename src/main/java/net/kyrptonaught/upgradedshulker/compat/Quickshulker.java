@@ -7,7 +7,8 @@ import net.kyrptonaught.upgradedshulker.block.RiftEChest;
 import net.kyrptonaught.upgradedshulker.block.SpatialEChest;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreenHandler;
-import net.kyrptonaught.upgradedshulker.util.SpatialEChestInventory;
+import net.kyrptonaught.upgradedshulker.inv.SpatialEChestInventory;
+import net.kyrptonaught.upgradedshulker.util.ContainerNames;
 import net.kyrptonaught.upgradedshulker.util.SpatialInvStorage;
 import net.minecraft.item.BlockItem;
 import net.minecraft.screen.GenericContainerScreenHandler;
@@ -27,12 +28,12 @@ public class Quickshulker implements RegisterQuickShulker {
             SpatialEChestInventory inv = new SpatialEChestInventory(player, ((SpatialInvStorage) player).getSpatialInv());
             player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
                 return GenericContainerScreenHandler.createGeneric9x6(i, playerInventory, inv);
-            }, new LiteralText("Spatial Storage")));
+            }, ContainerNames.SPATIAL_CHEST));
         });
         QuickOpenableRegistry.register(RiftEChest.class, (player, stack) -> {
             player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
                 return GenericContainerScreenHandler.createGeneric9x3(i, playerInventory, player.getEnderChestInventory());
-            }, new TranslatableText("container.enderchest")));
+            }, ContainerNames.getRiftChestName(player.getName())));
         });
     }
 }

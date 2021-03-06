@@ -35,7 +35,6 @@ dependencies {
 	//Quickshulker
 	optionalDependency('net.kyrptonaught:quickshulker:1.1.12-1.16')
 
-
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.8.9")
 }
 //thanks techreborn

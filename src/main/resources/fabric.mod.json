@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "id": "upgradedshulkers",
-  "version": "0.0.1-Beta17-1.16",
+  "version": "1.0.0-1.16",
   "name": "Upgraded Shulkers",
-  "description": "Pick Block inside shulkers",
+  "description": "Bigger shulkers and upgrades too??",
   "authors": [
     "kyrptonaught"
   ],
   "contact": {
-    "homepage": "https://github.com/kyrptonaught/shulkerupgrades",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/upgraded-shulkers",
     "sources": "https://github.com/kyrptonaught/shulkerupgrades"
   },
   "license": "MIT",
-  "icon": "assets/ridablepearl/icon.png",
+  "icon": "assets/us/icon.png",
   "environment": "*",
   "mixins": [
     {
@@ -29,6 +29,9 @@
     ],
     "quickshulker": [
       "net.kyrptonaught.upgradedshulker.compat.Quickshulker"
+    ],
+    "rei_plugins_v0": [
+      "net.kyrptonaught.upgradedshulker.compat.REIPlugin"
     ]
   },
   "depends": {

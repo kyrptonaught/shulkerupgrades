@@ -56,5 +56,15 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://dl.bintray.com/kyrptonaught/kyrptconfig" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="UserLocalRemappedMods" />
+      <option name="name" value="UserLocalRemappedMods" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../Minecraft%20Mod%20Dev/shulkerupgrades-1.16/.gradle/loom-cache/remapped_mods/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="https://maven.shedaniel.me/" />
+    </remote-repository>
   </component>
 </project>

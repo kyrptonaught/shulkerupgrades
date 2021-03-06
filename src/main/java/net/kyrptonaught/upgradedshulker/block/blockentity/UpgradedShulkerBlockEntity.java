@@ -6,7 +6,6 @@ import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -73,7 +72,7 @@ public class UpgradedShulkerBlockEntity extends ShulkerBoxBlockEntity implements
     }
 
     @Override
-    public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return null;
     }
 

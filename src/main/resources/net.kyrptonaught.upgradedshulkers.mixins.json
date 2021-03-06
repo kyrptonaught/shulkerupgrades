@@ -5,13 +5,8 @@
   "mixins": [
     "BlockEntityTypeAccessor",
     "DispenserMixin",
-    "EntityExplosionBehaviorMixin",
     "ItemEntityMixin",
-    "PlayerEntityMixin",
     "ShulkerBoxBlockMixin"
-  ],
-  "client" : [
-    "TexturedRenerLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

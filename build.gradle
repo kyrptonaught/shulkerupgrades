@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '0.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -16,6 +16,8 @@ repositories {
 	maven { url "https://maven.fabricmc.net" }
 	maven { url  "https://dl.bintray.com/kyrptonaught/Quickshulker"}
 	maven { url  "https://dl.bintray.com/kyrptonaught/kyrptconfig"}
+	maven { url "https://maven.shedaniel.me/" }
+
 }
 dependencies {
 	implementation 'org.jetbrains:annotations:20.1.0'

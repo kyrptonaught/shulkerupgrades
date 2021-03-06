@@ -39,25 +39,23 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
 
-        int n;
-        int m;
         int offsetX = 8;
-        for (n = 0; n < this.rows; ++n) {
-            for (m = 0; m < columns; ++m) {
-                this.addSlot(new ShulkerBoxSlot(inventory, m + n * columns, offsetX + m * 18, 18 + (n * 18)));
+        for (int row = 0; row < this.rows; ++row) {
+            for (int collumn = 0; collumn < columns; ++collumn) {
+                this.addSlot(new ShulkerBoxSlot(inventory, collumn + (row * columns), offsetX + collumn * 18, 18 + (row * 18)));
             }
         }
 
         int offsetY = 18 + (rows * 18) + 14;
         if (columns > 9) offsetX = 34;
-        for (n = 0; n < 3; ++n) {
-            for (m = 0; m < 9; ++m) {
-                this.addSlot(new Slot(playerInventory, m + n * 9 + 9, offsetX + m * 18, offsetY + (n * 18)));
+        for (int row = 0; row < 3; ++row) {
+            for (int collumn = 0; collumn < 9; ++collumn) {
+                this.addSlot(new Slot(playerInventory, collumn + row * 9 + 9, offsetX + collumn * 18, offsetY + (row * 18)));
             }
         }
         offsetY += (3 * 18) + 4;
-        for (n = 0; n < 9; ++n) {
-            this.addSlot(new Slot(playerInventory, n, offsetX + n * 18, offsetY));
+        for (int row = 0; row < 9; ++row) {
+            this.addSlot(new Slot(playerInventory, row, offsetX + row * 18, offsetY));
         }
 
     }
@@ -92,10 +90,10 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             if (index < this.rows * this.columns) {
-                if (!this.insertItem(itemStack2, this.rows * 9, this.slots.size(), true)) {
+                if (!this.insertItem(itemStack2, this.rows * this.columns, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(itemStack2, 0, this.rows * 9, false)) {
+            } else if (!this.insertItem(itemStack2, 0, this.rows * columns, false)) {
                 return ItemStack.EMPTY;
             }
 

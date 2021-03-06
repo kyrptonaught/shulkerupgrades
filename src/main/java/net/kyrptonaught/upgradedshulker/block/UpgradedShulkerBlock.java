@@ -11,9 +11,12 @@ import net.kyrptonaught.upgradedshulker.util.UpgradedShulker;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.mob.ShulkerLidCollisions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.BlockItem;
@@ -21,6 +24,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -29,6 +34,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -90,15 +96,35 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else if (player.isSpectator()) {
+            return ActionResult.CONSUME;
+        } else {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof UpgradedShulkerBlockEntity) {
                 UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
-                player.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(shulkerBoxBlockEntity, shulkerBoxBlockEntity.getDisplayName()));
+                boolean bl2;
+                if (shulkerBoxBlockEntity.getAnimationStage() == ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
+                    Direction direction = state.get(FACING);
+                    bl2 = world.isSpaceEmpty(ShulkerLidCollisions.getLidCollisionBox(pos, direction));
+                } else {
+                    bl2 = true;
+                }
+
+                if (bl2) {
+                    player.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(shulkerBoxBlockEntity, shulkerBoxBlockEntity.getDisplayName()));
+                    player.incrementStat(Stats.OPEN_SHULKER_BOX);
+                    PiglinBrain.onGuardedBlockInteracted(player, true);
+                }
+
+                return ActionResult.CONSUME;
+            } else {
+                return ActionResult.PASS;
             }
         }
-        return ActionResult.SUCCESS;
     }
+
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
@@ -127,6 +153,17 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         }
 
         super.onBreak(world, pos, state, player);
+    }
+
+
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof UpgradedShulkerBlockEntity) {
+            UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
+            return UpgradedShulkerScreenHandler.createScreenHandlerFactory(shulkerBoxBlockEntity, shulkerBoxBlockEntity.getDisplayName());
+        }
+        return null;
     }
 
     @Environment(EnvType.CLIENT)

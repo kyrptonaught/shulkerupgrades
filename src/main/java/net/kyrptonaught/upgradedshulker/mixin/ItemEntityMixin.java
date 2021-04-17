@@ -10,47 +10,88 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.UUID;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity {
+
+    @Shadow
+    public abstract ItemStack getStack();
+
+    @Shadow
+    private int pickupDelay;
+
+    @Shadow
+    private UUID owner;
+
+    @Shadow public abstract void setStack(ItemStack stack);
 
     public ItemEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Redirect(method = "onPlayerCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;insertStack(Lnet/minecraft/item/ItemStack;)Z"))
-    public boolean attemptHopperPickup(PlayerInventory playerInventory, ItemStack pickupStack, PlayerEntity player) {
-        if (pickupStack.isEmpty())
-            return false;
-
-        for (int i = 0; i < playerInventory.size(); i++) {
-            ItemStack shulker = playerInventory.getStack(i);
-            if (shulker.getItem() instanceof BlockItem && ((BlockItem) shulker.getItem()).getBlock() instanceof ShulkerBoxBlock) {
-                if (ShulkerUpgrades.UPGRADES.HOPPER.isOnStack(shulker)) {
-                    ItemStackInventory shulkerInv = ShulkerUtils.getInventoryFromShulker(shulker);
-                    if (ShulkerUtils.shulkerContainsAny(shulkerInv, pickupStack)) {
-                        pickupStack = ShulkerUtils.insertIntoShulker(shulkerInv, pickupStack, player);
-                        if (pickupStack.isEmpty()) {
-                            this.remove();
-                            return true;
-                        }
-                    }
-                }
-                if (ShulkerUpgrades.UPGRADES.VOID.isOnStack(shulker)) {
-                    ItemStackInventory shulkerInv = ShulkerUtils.getInventoryFromShulker(shulker);
-                    if (ShulkerUtils.shulkerContainsAny(shulkerInv, pickupStack)) {
-                        pickupStack.setCount(0);
+    @Inject(method = "onPlayerCollision", at = @At(value = "HEAD"), cancellable = true)
+    public void attemptHopperPickup(PlayerEntity player, CallbackInfo ci) {
+        if (!this.world.isClient) {
+            ItemStack itemStack = this.getStack();
+            Item item = itemStack.getItem();
+            int i = itemStack.getCount();
+            if (this.pickupDelay == 0 && (this.owner == null || this.owner.equals(player.getUuid()))) {
+                itemStack = putIntoHopperShulker(player, itemStack, player.inventory);
+                this.setStack(itemStack);
+                if (itemStack.getCount() != i) {
+                    player.sendPickup(this, i);
+                    if (itemStack.isEmpty()) {
                         this.remove();
-                        return true;
+                        itemStack.setCount(i);
+                        player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
+                        player.method_29499((ItemEntity) (Object) this);
+                        ci.cancel();
+                    } else {
+                        player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
+                        player.method_29499((ItemEntity) (Object) this);
                     }
                 }
             }
         }
-        return playerInventory.insertStack(pickupStack);
+    }
+
+    @Unique
+    private ItemStack putIntoHopperShulker(PlayerEntity player, ItemStack pickupStack, PlayerInventory playerInventory) {
+        if (pickupStack.getCount() > 0) {
+            for (int i = 0; i < playerInventory.size(); i++) {
+                ItemStack shulker = playerInventory.getStack(i);
+                if (shulker.getItem() instanceof BlockItem && ((BlockItem) shulker.getItem()).getBlock() instanceof ShulkerBoxBlock) {
+                    if (ShulkerUpgrades.UPGRADES.HOPPER.isOnStack(shulker)) {
+                        ItemStackInventory shulkerInv = ShulkerUtils.getInventoryFromShulker(shulker);
+                        if (ShulkerUtils.shulkerContainsAny(shulkerInv, pickupStack)) {
+                            pickupStack = ShulkerUtils.insertIntoShulker(shulkerInv, pickupStack, player);
+                            if (pickupStack.getCount() <= 0)
+                                break;
+                        }
+                    }
+                    if (ShulkerUpgrades.UPGRADES.VOID.isOnStack(shulker)) {
+                        ItemStackInventory shulkerInv = ShulkerUtils.getInventoryFromShulker(shulker);
+                        if (ShulkerUtils.shulkerContainsAny(shulkerInv, pickupStack)) {
+                            pickupStack.setCount(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return pickupStack;
     }
 }

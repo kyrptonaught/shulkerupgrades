@@ -1,5 +1,6 @@
 package net.kyrptonaught.upgradedshulker.util;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
@@ -34,7 +35,7 @@ public class ShulkersRegistry {
                 boxes.add(block);
             }
         }
-        UPGRADEDSHULKERENTITYTYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedShulkerMod.MOD_ID + ":shulker", BlockEntityType.Builder.create(UpgradedShulkerBlockEntity::new, boxes.toArray(new UpgradedShulkerBlock[0])).build(null));
+        UPGRADEDSHULKERENTITYTYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedShulkerMod.MOD_ID + ":shulker", FabricBlockEntityTypeBuilder.create(UpgradedShulkerBlockEntity::new, boxes.toArray(new UpgradedShulkerBlock[0])).build(null));
     }
 
     public static UpgradedShulkerBlock getShulkerBlock(ShulkerUpgrades.MATERIAL type, DyeColor color) {

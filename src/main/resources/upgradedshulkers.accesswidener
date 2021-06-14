@@ -1,0 +1,4 @@
+accessWidener v1 named
+
+Accessible field net/minecraft/block/entity/BlockEntity type Lnet/minecraft/block/entity/BlockEntityType;
+Mutable field net/minecraft/block/entity/BlockEntity type Lnet/minecraft/block/entity/BlockEntityType;

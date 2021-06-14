@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 public class CopyUpgradesRecipe extends ShapedRecipe {
 
     public CopyUpgradesRecipe(ShapedRecipe shapedRecipe) {
-        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getPreviewInputs(), shapedRecipe.getOutput());
+        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getOutput());
     }
 
     public ItemStack craft(CraftingInventory craftingInventory) {

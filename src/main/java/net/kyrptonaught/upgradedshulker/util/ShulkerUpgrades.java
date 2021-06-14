@@ -3,7 +3,7 @@ package net.kyrptonaught.upgradedshulker.util;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public class ShulkerUpgrades {
     public static String KEY = "upgradedshulker";
@@ -25,7 +25,7 @@ public class ShulkerUpgrades {
         }
 
         public boolean isOnStack(ItemStack stack) {
-            CompoundTag upgradeTag = stack.getSubTag(KEY);
+            NbtCompound upgradeTag = stack.getSubTag(KEY);
             if (upgradeTag != null) {
                 return upgradeTag.getBoolean(name);
             }

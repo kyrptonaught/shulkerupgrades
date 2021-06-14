@@ -41,7 +41,8 @@ public class AddUpgradeRecipe extends SmithingRecipe {
         public AddUpgradeRecipe read(Identifier identifier, JsonObject jsonObject) {
             Ingredient ingredient = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "base"));
             Ingredient ingredient2 = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "addition"));
-            ItemStack itemStack = ShapedRecipe.getItemStack(JsonHelper.getObject(jsonObject, "result"));
+            ItemStack itemStack = ShapedRecipe.getItem(JsonHelper.getObject(jsonObject, "result")).getDefaultStack();
+
             return new AddUpgradeRecipe(identifier, ingredient, ingredient2, itemStack);
         }
 

@@ -13,11 +13,13 @@ import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEn
 import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreen;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.HashMap;
 
@@ -42,10 +44,10 @@ public class UpgradedShulkerClientMod implements ClientModInitializer {
         for (ShulkerUpgrades.UPGRADES upgrade : type.getApplicableUpgrades())
             registerTexture(color, type, "_" + upgrade.name);
         BuiltinItemRendererRegistry.INSTANCE.register(ShulkersRegistry.getShulkerBlock(type, color), (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-            UpgradedShulkerBlockEntity be = new UpgradedShulkerBlockEntity(color, type);
-            CompoundTag tag = stack.getSubTag(ShulkerUpgrades.KEY);
+            UpgradedShulkerBlockEntity be = new UpgradedShulkerBlockEntity(color, type, BlockPos.ORIGIN, ShulkersRegistry.getShulkerBlock(type, color).getDefaultState());
+            NbtCompound tag = stack.getSubTag(ShulkerUpgrades.KEY);
             if (tag != null) be.appendUpgrades(tag);
-            BlockEntityRenderDispatcher.INSTANCE.renderEntity(be, matrices, vertexConsumers, light, overlay);
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(be, matrices, vertexConsumers, light, overlay);
         });
     }
 

@@ -7,23 +7,26 @@ import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
 import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreenHandler;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
+import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.kyrptonaught.upgradedshulker.util.UpgradedShulker;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.mob.ShulkerLidCollisions;
+import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
@@ -34,7 +37,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -56,11 +59,14 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         if (material == ShulkerUpgrades.MATERIAL.NETHERITE) itemSettings = itemSettings.fireproof();
         Registry.register(Registry.ITEM, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), new BlockItem(this, itemSettings));
     }
-
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new UpgradedShulkerBlockEntity(this.getColor(), material);
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new UpgradedShulkerBlockEntity(this.getColor(), material,pos,state);
     }
-
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient  & type == ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE ? (world1, pos, state1, blockEntity) -> ShulkerBoxBlockEntity.tick(world,pos,state, (ShulkerBoxBlockEntity) blockEntity) : null;
+    }
     @Override
     public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
         ItemStack shulkerStack = new ItemStack(this);
@@ -106,8 +112,8 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
                 UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
                 boolean bl2;
                 if (shulkerBoxBlockEntity.getAnimationStage() == ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
-                    Direction direction = state.get(FACING);
-                    bl2 = world.isSpaceEmpty(ShulkerLidCollisions.getLidCollisionBox(pos, direction));
+                    Box box = ShulkerEntity.method_33347(state.get(FACING), 0.0F, 0.5F).offset(pos).contract(1.0E-6D);
+                    bl2 = world.isSpaceEmpty(box);
                 } else {
                     bl2 = true;
                 }
@@ -134,7 +140,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
             if (!world.isClient && player.isCreative() && !shulkerBoxBlockEntity.isEmpty()) {
                 ItemStack itemStack = new ItemStack(this);
                 if (!shulkerBoxBlockEntity.isEmpty()) {
-                    CompoundTag compoundTag = shulkerBoxBlockEntity.serializeInventory(new CompoundTag());
+                    NbtCompound compoundTag = shulkerBoxBlockEntity.writeInventoryNbt(new NbtCompound());
                     if (!compoundTag.isEmpty()) {
                         itemStack.putSubTag("BlockEntityTag", compoundTag);
                     }
@@ -169,13 +175,13 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
-        CompoundTag upgradeTag = stack.getSubTag(ShulkerUpgrades.KEY);
+        NbtCompound upgradeTag = stack.getSubTag(ShulkerUpgrades.KEY);
         if (upgradeTag != null) {
             tooltip.add(new TranslatableText("upgradedshulkers.hasupgrades"));
             for (String str : upgradeTag.getKeys())
                 tooltip.add(new TranslatableText("upgradedshulkers.upgrade." + str));
         }
-        CompoundTag compoundTag = stack.getSubTag("BlockEntityTag");
+        NbtCompound compoundTag = stack.getSubTag("BlockEntityTag");
         if (compoundTag != null) {
             if (compoundTag.contains("LootTable", 8)) {
                 tooltip.add(new LiteralText("???????"));
@@ -183,7 +189,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
 
             if (compoundTag.contains("Items", 9)) {
                 DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(material.size, ItemStack.EMPTY);
-                Inventories.fromTag(compoundTag, defaultedList);
+                Inventories.readNbt(compoundTag, defaultedList);
                 int i = 0;
                 int j = 0;
                 Iterator var9 = defaultedList.iterator();

@@ -49,19 +49,19 @@ public abstract class ItemEntityMixin extends Entity {
             Item item = itemStack.getItem();
             int i = itemStack.getCount();
             if (this.pickupDelay == 0 && (this.owner == null || this.owner.equals(player.getUuid()))) {
-                itemStack = putIntoHopperShulker(player, itemStack, player.inventory);
+                itemStack = putIntoHopperShulker(player, itemStack, player.getInventory());
                 this.setStack(itemStack);
                 if (itemStack.getCount() != i) {
                     player.sendPickup(this, i);
                     if (itemStack.isEmpty()) {
-                        this.remove();
+                        this.discard();
                         itemStack.setCount(i);
                         player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
-                        player.method_29499((ItemEntity) (Object) this);
+                        player.triggerItemPickedUpByEntityCriteria((ItemEntity) (Object) this);
                         ci.cancel();
                     } else {
                         player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), i);
-                        player.method_29499((ItemEntity) (Object) this);
+                        player.triggerItemPickedUpByEntityCriteria((ItemEntity) (Object) this);
                     }
                 }
             }

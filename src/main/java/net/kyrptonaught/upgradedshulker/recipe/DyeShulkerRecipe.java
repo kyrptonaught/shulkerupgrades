@@ -41,8 +41,8 @@ public class DyeShulkerRecipe extends SpecialCraftingRecipe {
         UpgradedShulkerBlock shulkerBlock = (UpgradedShulkerBlock) Block.getBlockFromItem(shulkerStack.getItem());
 
         ItemStack coloredStack = ShulkersRegistry.getShulkerBlock(shulkerBlock.material, ((DyeItem) dyeStack.getItem()).getColor()).asItem().getDefaultStack();
-        if (shulkerStack.hasTag())
-            coloredStack.setTag(shulkerStack.getTag());
+        if (shulkerStack.hasNbt())
+            coloredStack.setNbt(shulkerStack.getNbt());
         return coloredStack;
     }
 

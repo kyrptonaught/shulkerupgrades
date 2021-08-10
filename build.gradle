@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -15,10 +15,7 @@ minecraft {
 }
 repositories {
 	maven { url 'https://maven.fabricmc.net' }
-	maven {
-		url = "http://maven.kyrptonaught.dev"
-		allowInsecureProtocol = true
-	}
+	maven {url = "https://maven.kyrptonaught.dev"}
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases"}
 }
@@ -33,12 +30,12 @@ dependencies {
 	//include group: 'net.devtech', name: 'arrp', version: '0.3.4'
 
 	//shulkerutils
-	modImplementation 'net.kyrptonaught:shulkerutils:1.0.1-1.17'
-	include 'net.kyrptonaught:shulkerutils:1.0.1-1.17'
+	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
+	include 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.1.14-1.17')
+	optionalDependency('net.kyrptonaught:quickshulker:1.2.2-1.17')
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.250-alpha")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.267-alpha")
 }
 //thanks techreborn
 def optionalDependency(String dep) {

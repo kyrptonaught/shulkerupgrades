@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "upgradedshulkers",
-  "version": "1.0.1-1.17",
+  "version": "1.0.2-1.17",
   "name": "Upgraded Shulkers",
   "description": "Bigger shulkers and upgrades too??",
   "authors": [
@@ -30,8 +30,8 @@
     "quickshulker": [
       "net.kyrptonaught.upgradedshulker.compat.Quickshulker"
     ],
-    "rei_plugins_v0": [
-      "net.kyrptonaught.upgradedshulker.compat.REIPlugin"
+    "rei": [
+      "net.kyrptonaught.upgradedshulker.compat.UpgradedShulkersREIPlugin"
     ]
   },
   "accessWidener" : "upgradedshulkers.accesswidener",

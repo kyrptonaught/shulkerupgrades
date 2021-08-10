@@ -20,12 +20,12 @@ public class ShulkerUpgrades {
         }
 
         public ItemStack putOnStack(ItemStack stack) {
-            stack.getOrCreateSubTag(KEY).putBoolean(name, true);
+            stack.getOrCreateSubNbt(KEY).putBoolean(name, true);
             return stack;
         }
 
         public boolean isOnStack(ItemStack stack) {
-            NbtCompound upgradeTag = stack.getSubTag(KEY);
+            NbtCompound upgradeTag = stack.getSubNbt(KEY);
             if (upgradeTag != null) {
                 return upgradeTag.getBoolean(name);
             }
@@ -33,7 +33,7 @@ public class ShulkerUpgrades {
         }
 
         public static boolean hasUpgrades(ItemStack stack) {
-            return stack.getSubTag(KEY) != null;
+            return stack.getSubNbt(KEY) != null;
         }
     }
 

@@ -68,23 +68,23 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         return world.isClient  & type == ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE ? (world1, pos, state1, blockEntity) -> ShulkerBoxBlockEntity.tick(world,pos,state, (ShulkerBoxBlockEntity) blockEntity) : null;
     }
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> list) {
         ItemStack shulkerStack = new ItemStack(this);
-        list.add(shulkerStack.copy());
-        for (ShulkerUpgrades.UPGRADES upgrade : material.getApplicableUpgrades()) {
-            ItemStack upgradedStack = shulkerStack.copy();
-            upgrade.putOnStack(upgradedStack);
-            list.add(upgradedStack);
-        }
+            list.add(shulkerStack.copy());
+            for (ShulkerUpgrades.UPGRADES upgrade : material.getApplicableUpgrades()) {
+                ItemStack upgradedStack = shulkerStack.copy();
+                upgrade.putOnStack(upgradedStack);
+                list.add(upgradedStack);
+            }
     }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        if (itemStack.hasTag()) {
+        if (itemStack.hasNbt()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof UpgradedShulkerBlockEntity) {
-                ((UpgradedShulkerBlockEntity) blockEntity).appendUpgrades(itemStack.getSubTag(ShulkerUpgrades.KEY));
+                ((UpgradedShulkerBlockEntity) blockEntity).appendUpgrades(itemStack.getSubNbt(ShulkerUpgrades.KEY));
             }
         }
     }
@@ -95,7 +95,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof UpgradedShulkerBlockEntity) {
             if (((UpgradedShulkerBlockEntity) blockEntity).hasUpgrades())
-                itemStack.putSubTag(ShulkerUpgrades.KEY, ((UpgradedShulkerBlockEntity) blockEntity).getUpgrades());
+                itemStack.setSubNbt(ShulkerUpgrades.KEY, ((UpgradedShulkerBlockEntity) blockEntity).getUpgrades());
         }
         return itemStack;
     }
@@ -142,14 +142,14 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
                 if (!shulkerBoxBlockEntity.isEmpty()) {
                     NbtCompound compoundTag = shulkerBoxBlockEntity.writeInventoryNbt(new NbtCompound());
                     if (!compoundTag.isEmpty()) {
-                        itemStack.putSubTag("BlockEntityTag", compoundTag);
+                        itemStack.setSubNbt("BlockEntityTag", compoundTag);
                     }
                 }
                 if (shulkerBoxBlockEntity.hasCustomName()) {
                     itemStack.setCustomName(shulkerBoxBlockEntity.getCustomName());
                 }
                 if (shulkerBoxBlockEntity.hasUpgrades())
-                    itemStack.putSubTag(ShulkerUpgrades.KEY, shulkerBoxBlockEntity.getUpgrades());
+                    itemStack.setSubNbt(ShulkerUpgrades.KEY, shulkerBoxBlockEntity.getUpgrades());
                 ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
@@ -175,13 +175,13 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
-        NbtCompound upgradeTag = stack.getSubTag(ShulkerUpgrades.KEY);
+        NbtCompound upgradeTag = stack.getSubNbt(ShulkerUpgrades.KEY);
         if (upgradeTag != null) {
             tooltip.add(new TranslatableText("upgradedshulkers.hasupgrades"));
             for (String str : upgradeTag.getKeys())
                 tooltip.add(new TranslatableText("upgradedshulkers.upgrade." + str));
         }
-        NbtCompound compoundTag = stack.getSubTag("BlockEntityTag");
+        NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
         if (compoundTag != null) {
             if (compoundTag.contains("LootTable", 8)) {
                 tooltip.add(new LiteralText("???????"));

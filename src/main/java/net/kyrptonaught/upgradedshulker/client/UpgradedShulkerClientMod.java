@@ -45,7 +45,7 @@ public class UpgradedShulkerClientMod implements ClientModInitializer {
             registerTexture(color, type, "_" + upgrade.name);
         BuiltinItemRendererRegistry.INSTANCE.register(ShulkersRegistry.getShulkerBlock(type, color), (stack, mode, matrices, vertexConsumers, light, overlay) -> {
             UpgradedShulkerBlockEntity be = new UpgradedShulkerBlockEntity(color, type, BlockPos.ORIGIN, ShulkersRegistry.getShulkerBlock(type, color).getDefaultState());
-            NbtCompound tag = stack.getSubTag(ShulkerUpgrades.KEY);
+            NbtCompound tag = stack.getSubNbt(ShulkerUpgrades.KEY);
             if (tag != null) be.appendUpgrades(tag);
             MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(be, matrices, vertexConsumers, light, overlay);
         });

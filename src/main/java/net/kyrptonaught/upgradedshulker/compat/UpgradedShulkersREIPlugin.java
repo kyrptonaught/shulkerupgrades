@@ -3,7 +3,6 @@ package net.kyrptonaught.upgradedshulker.compat;
 
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
-import me.shedaniel.rei.api.common.plugins.REIPluginProvider;
 import me.shedaniel.rei.plugin.common.displays.DefaultSmithingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapedDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultShapelessDisplay;
@@ -25,7 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 @Environment(EnvType.CLIENT)
-public class REIPlugin implements REIClientPlugin {
+public class UpgradedShulkersREIPlugin implements REIClientPlugin {
 
     @Override
     public  void registerDisplays(DisplayRegistry registry) {

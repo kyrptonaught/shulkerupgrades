@@ -27,8 +27,8 @@ public class KeepColorSmithing extends SmithingRecipe {
         ShulkerUpgrades.MATERIAL type = ((UpgradedShulkerBlock) Block.getBlockFromItem(output.getItem())).material;
         DyeColor color = ((UpgradedShulkerBlock) Block.getBlockFromItem(shulker.getItem())).getColor();
         output = ShulkersRegistry.getShulkerBlock(type, color).asItem().getDefaultStack();
-        if (shulker.hasTag())
-            output.setTag(shulker.getTag());
+        if (shulker.hasNbt())
+            output.setNbt(shulker.getNbt());
         return output;
     }
 

@@ -15,9 +15,18 @@ minecraft {
 }
 repositories {
 	maven { url 'https://maven.fabricmc.net' }
-	maven {url = "https://maven.kyrptonaught.dev"}
+	maven { url "https://maven.kyrptonaught.dev" }
 	maven { url "https://maven.shedaniel.me/" }
-	maven { url "https://maven.terraformersmc.com/releases"}
+	maven { url "https://maven.terraformersmc.com/releases" }
+
+	// Shulker Box Tooltip
+	maven { url "https://maven.misterpemodder.com/libs-release" }
+	// Mod Menu (Shulker Box Tooltip deps)
+	maven { url "https://raw.githubusercontent.com/TerraformersMC/Archive/main/releases" }
+	// Cloth Config (Shulker Box Tooltip deps)
+	maven { url "https://maven.shedaniel.me" }
+	// Fabric ASM (Shulker Box Tooltip deps)
+	maven { url "https://jitpack.io" }
 }
 dependencies {
 	implementation 'org.jetbrains:annotations:20.1.0'
@@ -36,6 +45,8 @@ dependencies {
 	optionalDependency('net.kyrptonaught:quickshulker:1.2.2-1.17')
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.267-alpha")
+
+	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.1+1.17")
 }
 //thanks techreborn
 def optionalDependency(String dep) {

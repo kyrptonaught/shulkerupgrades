@@ -32,6 +32,9 @@
     ],
     "rei": [
       "net.kyrptonaught.upgradedshulker.compat.UpgradedShulkersREIPlugin"
+    ],
+    "shulkerboxtooltip": [
+      "net.kyrptonaught.upgradedshulker.compat.shulkertooltip.ShulkerTooltip"
     ]
   },
   "accessWidener" : "upgradedshulkers.accesswidener",

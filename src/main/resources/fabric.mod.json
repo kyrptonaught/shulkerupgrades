@@ -9,7 +9,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/upgraded-shulkers",
-    "sources": "https://github.com/kyrptonaught/shulkerupgrades"
+    "sources": "https://github.com/kyrptonaught/shulkerupgrades",
+    "issues": "https://github.com/kyrptonaught/shulkerupgrades/issues"
   },
   "license": "MIT",
   "icon": "assets/us/icon.png",

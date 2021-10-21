@@ -1,5 +1,6 @@
 package net.kyrptonaught.upgradedshulker.compat;
 
+import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.quickshulker.api.QuickOpenableRegistry;
 import net.kyrptonaught.quickshulker.api.RegisterQuickShulker;
 import net.kyrptonaught.shulkerutils.ShulkerUtils;
@@ -12,9 +13,10 @@ import net.minecraft.text.TranslatableText;
 public class Quickshulker implements RegisterQuickShulker {
     @Override
     public void registerProviders() {
-        QuickOpenableRegistry.register(UpgradedShulkerBlock.class, (playerEntity, stack) -> {
-            Text text = new TranslatableText("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) stack.getItem()).getBlock()).material.name + "shulker");
-            playerEntity.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(ShulkerUtils.getInventoryFromShulker(stack), text));
-        });
+        if (QuickShulkerMod.getConfig().quickShulkerBox)
+            QuickOpenableRegistry.register(UpgradedShulkerBlock.class, true, (playerEntity, stack) -> {
+                Text text = new TranslatableText("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) stack.getItem()).getBlock()).material.name + "shulker");
+                playerEntity.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(ShulkerUtils.getInventoryFromShulker(stack), text));
+            });
     }
 }

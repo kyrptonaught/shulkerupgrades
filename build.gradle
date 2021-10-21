@@ -42,9 +42,9 @@ dependencies {
 	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
 	include 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.2.2-1.17')
+	optionalDependency('net.kyrptonaught:quickshulker:1.3.0-1.17')
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.267-alpha")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.298-alpha")
 
 	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.1+1.17")
 }

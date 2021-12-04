@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.DyeColor;
 
 public class UpgradedShulkersPreviewProvider extends BlockEntityPreviewProvider {
-    private final static float[] DEFAULT_COLOR = new float[] { 0.592f, 0.403f, 0.592f };
+    private final static float[] DEFAULT_COLOR = new float[]{0.592f, 0.403f, 0.592f};
     protected final int maxRowSize;
 
     public UpgradedShulkersPreviewProvider(final ShulkerUpgrades.MATERIAL material) {

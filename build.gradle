@@ -1,18 +1,19 @@
 plugins {
-	id 'fabric-loom' version '0.9-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-minecraft {
-	accessWidener = file("src/main/resources/upgradedshulkers.accesswidener")
+loom {
+	accessWidenerPath = file("src/main/resources/upgradedshulkers.accesswidener")
 }
+
 repositories {
 	maven { url 'https://maven.fabricmc.net' }
 	maven { url "https://maven.kyrptonaught.dev" }
@@ -42,15 +43,15 @@ dependencies {
 	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
 	include 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.3.0-1.17')
+	optionalDependency('net.kyrptonaught:quickshulker:1.3.1-1.18')
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:6.0.298-alpha")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:7.0.343")
 
-	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.1+1.17")
+	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.5-beta.1+1.18-pre5")
 }
 //thanks techreborn
 def optionalDependency(String dep) {
-	dependencies.modRuntime (dep) {
+	dependencies.modRuntimeOnly (dep) {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude module: "nbt-crafting"
 	}
@@ -59,6 +60,7 @@ def optionalDependency(String dep) {
 		exclude module: "nbt-crafting"
 	}
 }
+
 processResources {
 	inputs.property "version", project.version
 
@@ -85,3 +87,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 jar {
 	from "LICENSE"
 }
+

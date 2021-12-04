@@ -27,7 +27,7 @@ import net.minecraft.util.collection.DefaultedList;
 public class UpgradedShulkersREIPlugin implements REIClientPlugin {
 
     @Override
-    public  void registerDisplays(DisplayRegistry registry) {
+    public void registerDisplays(DisplayRegistry registry) {
         for (ShulkerUpgrades.MATERIAL material : ShulkerUpgrades.MATERIAL.values()) {
             for (DyeColor dye : DyeColor.values()) {
                 ItemStack output = new ItemStack(ShulkersRegistry.getShulkerBlock(material, dye));
@@ -39,7 +39,7 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
     }
 
     private void registerColorRecipe(DisplayRegistry recipeHelper, ShulkerUpgrades.MATERIAL material, DyeColor color, ItemStack output) {
-        Tag<Item> tag =  ItemTags.getTagGroup().getTag(new Identifier("us", material.name().toLowerCase() + "_shulkers"));
+        Tag<Item> tag = ItemTags.getTagGroup().getTag(new Identifier("us", material.name().toLowerCase() + "_shulkers"));
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
         defaultedList.add(Ingredient.fromTag(tag));
         defaultedList.add(Ingredient.ofItems(DyeItem.byColor(color)));

@@ -59,23 +59,26 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         if (material == ShulkerUpgrades.MATERIAL.NETHERITE) itemSettings = itemSettings.fireproof();
         Registry.register(Registry.ITEM, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), new BlockItem(this, itemSettings));
     }
+
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new UpgradedShulkerBlockEntity(this.getColor(), material,pos,state);
+        return new UpgradedShulkerBlockEntity(this.getColor(), material, pos, state);
     }
+
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient  & type == ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE ? (world1, pos, state1, blockEntity) -> ShulkerBoxBlockEntity.tick(world,pos,state, (ShulkerBoxBlockEntity) blockEntity) : null;
+        return world.isClient & type == ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE ? (world1, pos, state1, blockEntity) -> ShulkerBoxBlockEntity.tick(world, pos, state, (ShulkerBoxBlockEntity) blockEntity) : null;
     }
+
     @Override
     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> list) {
         ItemStack shulkerStack = new ItemStack(this);
-            list.add(shulkerStack.copy());
-            for (ShulkerUpgrades.UPGRADES upgrade : material.getApplicableUpgrades()) {
-                ItemStack upgradedStack = shulkerStack.copy();
-                upgrade.putOnStack(upgradedStack);
-                list.add(upgradedStack);
-            }
+        list.add(shulkerStack.copy());
+        for (ShulkerUpgrades.UPGRADES upgrade : material.getApplicableUpgrades()) {
+            ItemStack upgradedStack = shulkerStack.copy();
+            upgrade.putOnStack(upgradedStack);
+            list.add(upgradedStack);
+        }
     }
 
     @Override
@@ -112,7 +115,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
                 UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
                 boolean bl2;
                 if (shulkerBoxBlockEntity.getAnimationStage() == ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
-                    Box box = ShulkerEntity.method_33347(state.get(FACING), 0.0F, 0.5F).offset(pos).contract(1.0E-6D);
+                    Box box = ShulkerEntity.calculateBoundingBox(state.get(FACING), 0.0F, 0.5F).offset(pos).contract(1.0E-6D);
                     bl2 = world.isSpaceEmpty(box);
                 } else {
                     bl2 = true;
@@ -140,10 +143,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
             if (!world.isClient && player.isCreative() && !shulkerBoxBlockEntity.isEmpty()) {
                 ItemStack itemStack = new ItemStack(this);
                 if (!shulkerBoxBlockEntity.isEmpty()) {
-                    NbtCompound compoundTag = shulkerBoxBlockEntity.writeInventoryNbt(new NbtCompound());
-                    if (!compoundTag.isEmpty()) {
-                        itemStack.setSubNbt("BlockEntityTag", compoundTag);
-                    }
+                    blockEntity.setStackNbt(itemStack);
                 }
                 if (shulkerBoxBlockEntity.hasCustomName()) {
                     itemStack.setCustomName(shulkerBoxBlockEntity.getCustomName());

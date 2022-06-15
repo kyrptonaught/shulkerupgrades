@@ -29,10 +29,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
@@ -43,7 +41,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShulker, UpgradableShulker {
@@ -111,8 +108,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
             return ActionResult.CONSUME;
         } else {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof UpgradedShulkerBlockEntity) {
-                UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
+            if (blockEntity instanceof UpgradedShulkerBlockEntity shulkerBoxBlockEntity) {
                 boolean bl2;
                 if (shulkerBoxBlockEntity.getAnimationStage() == ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
                     Box box = ShulkerEntity.calculateBoundingBox(state.get(FACING), 0.0F, 0.5F).offset(pos).contract(1.0E-6D);
@@ -138,8 +134,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof UpgradedShulkerBlockEntity) {
-            UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
+        if (blockEntity instanceof UpgradedShulkerBlockEntity shulkerBoxBlockEntity) {
             if (!world.isClient && player.isCreative() && !shulkerBoxBlockEntity.isEmpty()) {
                 ItemStack itemStack = new ItemStack(this);
                 if (!shulkerBoxBlockEntity.isEmpty()) {
@@ -165,8 +160,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
     @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof UpgradedShulkerBlockEntity) {
-            UpgradedShulkerBlockEntity shulkerBoxBlockEntity = (UpgradedShulkerBlockEntity) blockEntity;
+        if (blockEntity instanceof UpgradedShulkerBlockEntity shulkerBoxBlockEntity) {
             return UpgradedShulkerScreenHandler.createScreenHandlerFactory(shulkerBoxBlockEntity, shulkerBoxBlockEntity.getDisplayName());
         }
         return null;
@@ -177,14 +171,14 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         super.appendTooltip(stack, world, tooltip, options);
         NbtCompound upgradeTag = stack.getSubNbt(ShulkerUpgrades.KEY);
         if (upgradeTag != null) {
-            tooltip.add(new TranslatableText("upgradedshulkers.hasupgrades"));
+            tooltip.add(Text.translatable("upgradedshulkers.hasupgrades"));
             for (String str : upgradeTag.getKeys())
-                tooltip.add(new TranslatableText("upgradedshulkers.upgrade." + str));
+                tooltip.add(Text.translatable("upgradedshulkers.upgrade." + str));
         }
         NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
         if (compoundTag != null) {
             if (compoundTag.contains("LootTable", 8)) {
-                tooltip.add(new LiteralText("???????"));
+                tooltip.add(Text.translatable("upgradedshulkers.tooltip.?"));
             }
 
             if (compoundTag.contains("Items", 9)) {
@@ -192,15 +186,13 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
                 Inventories.readNbt(compoundTag, defaultedList);
                 int i = 0;
                 int j = 0;
-                Iterator var9 = defaultedList.iterator();
 
-                while (var9.hasNext()) {
-                    ItemStack itemStack = (ItemStack) var9.next();
+                for (ItemStack itemStack : defaultedList) {
                     if (!itemStack.isEmpty()) {
                         ++j;
                         if (i <= 4) {
                             ++i;
-                            MutableText mutableText = itemStack.getName().shallowCopy();
+                            MutableText mutableText = itemStack.getName().copy();
                             mutableText.append(" x").append(String.valueOf(itemStack.getCount()));
                             tooltip.add(mutableText);
                         }
@@ -208,7 +200,7 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
                 }
 
                 if (j - i > 0) {
-                    tooltip.add((new TranslatableText("container.shulkerBox.more", j - i)).formatted(Formatting.ITALIC));
+                    tooltip.add((Text.translatable("container.shulkerBox.more", j - i)).formatted(Formatting.ITALIC));
                 }
             }
         }

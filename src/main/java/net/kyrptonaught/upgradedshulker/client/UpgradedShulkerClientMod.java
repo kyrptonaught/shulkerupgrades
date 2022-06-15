@@ -4,7 +4,7 @@ package net.kyrptonaught.upgradedshulker.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
@@ -32,7 +32,7 @@ public class UpgradedShulkerClientMod implements ClientModInitializer {
         ScreenRegistry.register(UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE, UpgradedShulkerScreen::new);
         for (ShulkerUpgrades.MATERIAL type : ShulkerUpgrades.MATERIAL.values()) {
             registerShulkerWith(null, type);
-            BlockEntityRendererRegistry.INSTANCE.register(ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE, UpgradedShulkerBoxRenderer::new);
+            BlockEntityRendererRegistry.register(ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE, UpgradedShulkerBoxRenderer::new);
             for (DyeColor color : DyeColor.values())
                 registerShulkerWith(color, type);
         }

@@ -3,6 +3,7 @@
   "upgradedshulkers.hasupgrades": "Upgrades:",
   "upgradedshulkers.upgrade.auto": "Hopper",
   "upgradedshulkers.upgrade.void": "Void",
+  "upgradedshulkers.tooltip.?": "???????",
   "block.upgradedshulkers.ironshulker": "Iron Shulker",
   "block.upgradedshulkers.goldshulker": "Gold Shulker",
   "block.upgradedshulkers.diamondshulker": "Diamond Shulker",
@@ -76,7 +77,5 @@
   "block.us.graydiamondshulker": "Diamond Gray Shulker Box",
   "block.us.normalironshulker": "Iron Shulker Box",
   "block.us.spatialchest": "Spatial Ender Chest",
-  "block.us.riftchest": "Rift Ender Chest",
-  "upgradedshulkers.containername.spatialchest": "Spatial Chest",
-  "upgradedshulkers.containername.riftchest": "Rift Chest: "
+  "block.us.riftchest": "Rift Ender Chest"
 }

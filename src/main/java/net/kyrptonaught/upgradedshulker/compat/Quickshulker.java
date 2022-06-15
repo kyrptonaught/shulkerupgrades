@@ -8,14 +8,13 @@ import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreenHandler;
 import net.minecraft.item.BlockItem;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 public class Quickshulker implements RegisterQuickShulker {
     @Override
     public void registerProviders() {
         if (QuickShulkerMod.getConfig().quickShulkerBox)
             QuickOpenableRegistry.register(UpgradedShulkerBlock.class, true, (playerEntity, stack) -> {
-                Text text = new TranslatableText("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) stack.getItem()).getBlock()).material.name + "shulker");
+                Text text = Text.translatable("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) stack.getItem()).getBlock()).material.name + "shulker");
                 playerEntity.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(ShulkerUtils.getInventoryFromShulker(stack), text));
             });
     }

@@ -74,9 +74,5 @@
   "block.us.blackdiamondshulker": "钻石黑色潜影盒",
   "block.us.orangediamondshulker": "钻石橙色潜影盒",
   "block.us.graydiamondshulker": "钻石灰色潜影盒",
-  "block.us.normalironshulker": "铁潜影盒",
-  "block.us.spatialchest": "空间末影箱",
-  "block.us.riftchest": "裂隙末影箱",
-  "upgradedshulkers.containername.spatialchest": "空间末影箱",
-  "upgradedshulkers.containername.riftchest": "裂隙末影箱"
+  "block.us.normalironshulker": "铁潜影盒"
 }

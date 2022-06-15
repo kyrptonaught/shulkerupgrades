@@ -3,6 +3,7 @@
   "upgradedshulkers.hasupgrades": "升级：",
   "upgradedshulkers.upgrade.auto": "漏斗",
   "upgradedshulkers.upgrade.void": "虚空",
+  "upgradedshulkers.tooltip.?": "???????",
   "block.upgradedshulkers.ironshulker": "铁潜影盒",
   "block.upgradedshulkers.goldshulker": "金潜影盒",
   "block.upgradedshulkers.diamondshulker": "钻石潜影盒",
@@ -74,9 +75,5 @@
   "block.us.blackdiamondshulker": "钻石黑色潜影盒",
   "block.us.orangediamondshulker": "钻石橙色潜影盒",
   "block.us.graydiamondshulker": "钻石灰色潜影盒",
-  "block.us.normalironshulker": "铁潜影盒",
-  "block.us.spatialchest": "空间末影箱",
-  "block.us.riftchest": "裂隙末影箱",
-  "upgradedshulkers.containername.spatialchest": "空间末影箱",
-  "upgradedshulkers.containername.riftchest": "裂隙末影箱"
+  "block.us.normalironshulker": "铁潜影盒"
 }

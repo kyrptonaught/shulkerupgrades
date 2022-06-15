@@ -14,6 +14,7 @@ import net.kyrptonaught.upgradedshulker.screen.UpgradedShulkerScreen;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
@@ -29,7 +30,7 @@ public class UpgradedShulkerClientMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ScreenRegistry.register(UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE, UpgradedShulkerScreen::new);
+        HandledScreens.register(UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE, UpgradedShulkerScreen::new);
         for (ShulkerUpgrades.MATERIAL type : ShulkerUpgrades.MATERIAL.values()) {
             registerShulkerWith(null, type);
             BlockEntityRendererRegistry.register(ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE, UpgradedShulkerBoxRenderer::new);

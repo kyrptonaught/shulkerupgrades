@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -30,9 +30,8 @@ repositories {
 	maven { url "https://jitpack.io" }
 }
 dependencies {
-	implementation 'org.jetbrains:annotations:20.1.0'
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
@@ -40,14 +39,20 @@ dependencies {
 	//include group: 'net.devtech', name: 'arrp', version: '0.3.4'
 
 	//shulkerutils
-	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
-	include 'net.kyrptonaught:shulkerutils:1.0.4-1.17'
+	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
+	include 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
+
+	modImplementation 'net.kyrptonaught:kyrptconfig:1.4.6-1.18'
+	include 'net.kyrptonaught:kyrptconfig:1.4.6-1.18'
+
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.3.1-1.18')
+	optionalDependency('net.kyrptonaught:quickshulker:1.3.5-1.18')
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:7.0.343")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-api-fabric:8.2.479")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:8.2.479")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:8.2.479")
 
-	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.5-beta.1+1.18-pre5")
+	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.9+1.18.2")
 }
 //thanks techreborn
 def optionalDependency(String dep) {
@@ -69,22 +74,16 @@ processResources {
 	}
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
 }
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
+java {
+	withSourcesJar()
 }
 
 jar {
-	from "LICENSE"
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}" }
+	}
 }
-

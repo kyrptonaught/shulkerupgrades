@@ -49,6 +49,7 @@ public abstract class ItemEntityMixin extends Entity {
             Item item = itemStack.getItem();
             int i = itemStack.getCount();
             if (this.pickupDelay == 0 && (this.owner == null || this.owner.equals(player.getUuid()))) {
+                fillExistingStack(player, itemStack, player.getInventory());
                 itemStack = putIntoHopperShulker(player, itemStack, player.getInventory());
                 this.setStack(itemStack);
                 if (itemStack.getCount() != i) {
@@ -66,6 +67,20 @@ public abstract class ItemEntityMixin extends Entity {
                 }
             }
         }
+    }
+
+    private void fillExistingStack(PlayerEntity player, ItemStack pickupStack, PlayerInventory playerInventory) {
+        if (pickupStack.isStackable())
+            for (int i = 0; i < playerInventory.size(); i++) {
+                ItemStack shulker = playerInventory.getStack(i);
+                if (shulker.isStackable() && shulker.getCount() < shulker.getMaxCount() && shulker.isItemEqual(pickupStack)) {
+                    int amount = Math.min(shulker.getMaxCount() - shulker.getCount(), pickupStack.getCount());
+                    shulker.increment(amount);
+                    pickupStack.decrement(amount);
+                    if (pickupStack.getCount() <= 0)
+                        break;
+                }
+            }
     }
 
     @Unique

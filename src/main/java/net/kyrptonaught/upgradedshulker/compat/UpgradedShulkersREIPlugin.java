@@ -1,6 +1,5 @@
 package net.kyrptonaught.upgradedshulker.compat;
 
-
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.plugin.common.displays.DefaultSmithingDisplay;
@@ -12,16 +11,19 @@ import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.item.*;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.SmithingRecipe;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
 public class UpgradedShulkersREIPlugin implements REIClientPlugin {
@@ -39,9 +41,8 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
     }
 
     private void registerColorRecipe(DisplayRegistry recipeHelper, ShulkerUpgrades.MATERIAL material, DyeColor color, ItemStack output) {
-        Tag<Item> tag = ItemTags.getTagGroup().getTag(new Identifier("us", material.name().toLowerCase() + "_shulkers"));
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
-        defaultedList.add(Ingredient.fromTag(tag));
+        defaultedList.add(Ingredient.fromTag(TagKey.of(Registry.ITEM_KEY, new Identifier("us", material.name().toLowerCase() + "_shulkers"))));
         defaultedList.add(Ingredient.ofItems(DyeItem.byColor(color)));
         ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "dyeshulkers"), "dyeshulkers", output, defaultedList);
         recipeHelper.add(new DefaultShapelessDisplay(shapelessRecipe));
@@ -64,20 +65,17 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
         ItemConvertible upgradeMaterial;
         ItemConvertible oldShulker;
         switch (material) {
-            case GOLD: {
+            case GOLD -> {
                 upgradeMaterial = Items.GOLD_INGOT;
                 oldShulker = ShulkersRegistry.getShulkerBlock(ShulkerUpgrades.MATERIAL.IRON, color);
-                break;
             }
-            case DIAMOND: {
+            case DIAMOND -> {
                 upgradeMaterial = Items.DIAMOND;
                 oldShulker = ShulkersRegistry.getShulkerBlock(ShulkerUpgrades.MATERIAL.GOLD, color);
-                break;
             }
-            default: {
+            default -> {
                 upgradeMaterial = Items.IRON_INGOT;
                 oldShulker = ShulkerBoxBlock.get(color);
-                break;
             }
         }
         defaultedList2.add(Ingredient.ofItems(upgradeMaterial));
@@ -95,5 +93,4 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
         ShapedRecipe recipe = new ShapedRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), "upgradeshulkertier", 3, 3, defaultedList2, output);
         recipeHelper.add(new DefaultShapedDisplay(recipe));
     }
-
 }

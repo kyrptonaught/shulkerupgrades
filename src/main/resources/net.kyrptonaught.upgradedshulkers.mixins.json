@@ -3,7 +3,6 @@
   "package": "net.kyrptonaught.upgradedshulker.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "DispenserMixin",
     "ItemEntityMixin",
     "ShulkerBoxBlockMixin"
   ],

@@ -185,3 +185,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 # End of https://www.gitignore.io/api/java,gradle,windows,intellij,forgegradle
+
+# get rid of the rest of idea's crap too
+.idea

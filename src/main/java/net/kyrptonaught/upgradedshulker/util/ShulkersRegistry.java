@@ -5,7 +5,9 @@ import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.Material;
+import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
@@ -36,6 +38,11 @@ public class ShulkersRegistry {
             }
         }
         UPGRADEDSHULKERENTITYTYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedShulkerMod.MOD_ID + ":shulker", FabricBlockEntityTypeBuilder.create(UpgradedShulkerBlockEntity::new, boxes.toArray(new UpgradedShulkerBlock[0])).build(null));
+
+        BlockPlacementDispenserBehavior dispenseBehavior = new BlockPlacementDispenserBehavior();
+        for(UpgradedShulkerBlock box : boxes) {
+            DispenserBlock.registerBehavior(box, dispenseBehavior);
+        }
     }
 
     public static UpgradedShulkerBlock getShulkerBlock(ShulkerUpgrades.MATERIAL type, DyeColor color) {

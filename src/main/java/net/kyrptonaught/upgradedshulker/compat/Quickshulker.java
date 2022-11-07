@@ -13,9 +13,12 @@ public class Quickshulker implements RegisterQuickShulker {
     @Override
     public void registerProviders() {
         if (QuickShulkerMod.getConfig().quickShulkerBox)
-            QuickOpenableRegistry.register(UpgradedShulkerBlock.class, true, (playerEntity, stack) -> {
-                Text text = Text.translatable("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) stack.getItem()).getBlock()).material.name + "shulker");
-                playerEntity.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(ShulkerUtils.getInventoryFromShulker(stack), text));
-            });
+            new QuickOpenableRegistry.Builder()
+                    .setItem(UpgradedShulkerBlock.class)
+                    .supportsBundleing(true)
+                    .setOpenAction((player, itemStack) -> {
+                        Text text = Text.translatable("block.upgradedshulkers." + ((UpgradedShulkerBlock) ((BlockItem) itemStack.getItem()).getBlock()).material.name + "shulker");
+                        player.openHandledScreen(UpgradedShulkerScreenHandler.createScreenHandlerFactory(ShulkerUtils.getInventoryFromShulker(itemStack), text));
+                    }).register();
     }
 }

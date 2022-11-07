@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -21,7 +21,7 @@ repositories {
 	maven { url "https://maven.terraformersmc.com/releases" }
 
 	// Shulker Box Tooltip
-	maven { url "https://maven.misterpemodder.com/libs-release" }
+	maven {url "https://maven.misterpemodder.com/libs-release/"}
 	// Mod Menu (Shulker Box Tooltip deps)
 	maven { url "https://raw.githubusercontent.com/TerraformersMC/Archive/main/releases" }
 	// Cloth Config (Shulker Box Tooltip deps)
@@ -39,31 +39,20 @@ dependencies {
 	//include group: 'net.devtech', name: 'arrp', version: '0.3.4'
 
 	//shulkerutils
-	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
-	include 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
+	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
+	include 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
 
-	modImplementation 'net.kyrptonaught:kyrptconfig:1.4.6-1.19'
-	include 'net.kyrptonaught:kyrptconfig:1.4.6-1.19'
+	modImplementation 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
+	include 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
 
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.3.6-1.19')
+	modImplementation 'net.kyrptonaught:quickshulker:1.3.9-1.19'
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-api-fabric:9.0.480")
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:9.0.480")
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.0.480")
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.565"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.565"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.1.565"
 
-	optionalDependency ("com.misterpemodder:shulkerboxtooltip:3.0.9+1.19")
-}
-//thanks techreborn
-def optionalDependency(String dep) {
-	dependencies.modRuntimeOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.2+1.19.2")
 }
 
 processResources {

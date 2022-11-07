@@ -46,16 +46,21 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
             }
         }
 
+        //Not sure why they are off by 1
+        int largeInvXOffset =0;
+        if(columns == 12)
+            largeInvXOffset =1;
+
         int offsetY = 18 + (rows * 18) + 14;
         if (columns > 9) offsetX = 34;
         for (int row = 0; row < 3; ++row) {
             for (int collumn = 0; collumn < 9; ++collumn) {
-                this.addSlot(new Slot(playerInventory, collumn + row * 9 + 9, offsetX + collumn * 18, offsetY + (row * 18)));
+                this.addSlot(new Slot(playerInventory, collumn + row * 9 + 9, largeInvXOffset + offsetX + collumn * 18, offsetY + (row * 18)));
             }
         }
         offsetY += (3 * 18) + 4;
         for (int row = 0; row < 9; ++row) {
-            this.addSlot(new Slot(playerInventory, row, offsetX + row * 18, offsetY));
+            this.addSlot(new Slot(playerInventory, row, largeInvXOffset + offsetX + row * 18, offsetY));
         }
 
     }

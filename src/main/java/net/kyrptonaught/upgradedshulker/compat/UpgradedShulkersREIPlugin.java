@@ -19,11 +19,12 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.SmithingRecipe;
-import net.minecraft.tag.TagKey;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
 public class UpgradedShulkersREIPlugin implements REIClientPlugin {
@@ -42,9 +43,9 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
 
     private void registerColorRecipe(DisplayRegistry recipeHelper, ShulkerUpgrades.MATERIAL material, DyeColor color, ItemStack output) {
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
-        defaultedList.add(Ingredient.fromTag(TagKey.of(Registry.ITEM_KEY, new Identifier("us", material.name().toLowerCase() + "_shulkers"))));
+        defaultedList.add(Ingredient.fromTag(TagKey.of(Registries.ITEM.getKey(), new Identifier("us", material.name().toLowerCase() + "_shulkers"))));
         defaultedList.add(Ingredient.ofItems(DyeItem.byColor(color)));
-        ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "dyeshulkers"), "dyeshulkers", output, defaultedList);
+        ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "dyeshulkers"), "dyeshulkers", CraftingRecipeCategory.EQUIPMENT, output, defaultedList);
         recipeHelper.add(new DefaultShapelessDisplay(shapelessRecipe));
     }
 
@@ -90,7 +91,7 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
         defaultedList2.add(Ingredient.ofItems(Items.SHULKER_SHELL));
         defaultedList2.add(Ingredient.ofItems(upgradeMaterial));
 
-        ShapedRecipe recipe = new ShapedRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), "upgradeshulkertier", 3, 3, defaultedList2, output);
+        ShapedRecipe recipe = new ShapedRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), "upgradeshulkertier", CraftingRecipeCategory.EQUIPMENT, 3, 3, defaultedList2, output);
         recipeHelper.add(new DefaultShapedDisplay(recipe));
     }
 }

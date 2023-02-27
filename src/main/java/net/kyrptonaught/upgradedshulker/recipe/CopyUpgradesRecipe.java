@@ -12,13 +12,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 public class CopyUpgradesRecipe extends ShapedRecipe {
 
     public CopyUpgradesRecipe(ShapedRecipe shapedRecipe) {
-        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getOutput());
+        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID,  CraftingRecipeCategory.EQUIPMENT, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getOutput());
     }
 
     public ItemStack craft(CraftingInventory craftingInventory) {

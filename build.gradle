@@ -48,11 +48,11 @@ dependencies {
 	//Quickshulker
 	modImplementation 'net.kyrptonaught:quickshulker:1.3.9-1.19'
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.565"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.565"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.1.565"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.592"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.592"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.592"
 
-	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.2+1.19.2")
+	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.4+1.19.3")
 }
 
 processResources {

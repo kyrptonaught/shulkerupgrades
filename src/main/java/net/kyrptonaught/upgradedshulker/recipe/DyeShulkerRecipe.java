@@ -10,12 +10,13 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class DyeShulkerRecipe extends SpecialCraftingRecipe {
-    public DyeShulkerRecipe(Identifier id) {
-        super(id);
+    public DyeShulkerRecipe(Identifier id, CraftingRecipeCategory category) {
+        super(id,category);
     }
 
     @Override

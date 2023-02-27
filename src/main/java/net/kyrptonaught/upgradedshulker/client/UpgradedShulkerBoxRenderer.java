@@ -24,7 +24,7 @@ public class UpgradedShulkerBoxRenderer<T extends UpgradedShulkerBlockEntity> im
     private final ShulkerEntityModel<?> model;
 
     public UpgradedShulkerBoxRenderer(BlockEntityRendererFactory.Context ctx) {
-        this.model = new ShulkerEntityModel(ctx.getLayerModelPart(EntityModelLayers.SHULKER));
+        this.model = new ShulkerEntityModel<>(ctx.getLayerModelPart(EntityModelLayers.SHULKER));
     }
 
     public void render(T shulkerBoxBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {

@@ -1,6 +1,7 @@
 package net.kyrptonaught.upgradedshulker.compat.shulkertooltip;
 
 import com.misterpemodder.shulkerboxtooltip.api.PreviewContext;
+import com.misterpemodder.shulkerboxtooltip.api.color.ColorKey;
 import com.misterpemodder.shulkerboxtooltip.api.provider.BlockEntityPreviewProvider;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
@@ -22,14 +23,14 @@ public class UpgradedShulkersPreviewProvider extends BlockEntityPreviewProvider 
     }
 
     @Override
-    public float[] getWindowColor(final PreviewContext context) {
-        final DyeColor dye = ((UpgradedShulkerBlock) Block.getBlockFromItem(context.getStack().getItem())).getColor();
+    public ColorKey getWindowColorKey(PreviewContext context) {
+        final DyeColor dye = ((UpgradedShulkerBlock) Block.getBlockFromItem(context.stack().getItem())).getColor();
         float[] result = DEFAULT_COLOR;
         if (dye != null) {
             final float[] components = dye.getColorComponents();
             result = new float[]{Math.max(0.15f, components[0]), Math.max(0.15f, components[1]),
                     Math.max(0.15f, components[2])};
         }
-        return result;
+        return ColorKey.ofRgb(result);
     }
 }

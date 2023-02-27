@@ -88,7 +88,8 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
         return this.inventory.canPlayerUse(player);
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    @Override
+    public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasStack()) {
@@ -135,4 +136,5 @@ public class UpgradedShulkerScreenHandler extends ScreenHandler {
     public ScreenHandlerType<?> getType() {
         return UpgradedShulkerMod.US_SCREEN_HANDLER_TYPE;
     }
+
 }

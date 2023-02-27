@@ -11,8 +11,9 @@ import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class ShulkersRegistry {
                 boxes.add(block);
             }
         }
-        UPGRADEDSHULKERENTITYTYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedShulkerMod.MOD_ID + ":shulker", FabricBlockEntityTypeBuilder.create(UpgradedShulkerBlockEntity::new, boxes.toArray(new UpgradedShulkerBlock[0])).build(null));
+        UPGRADEDSHULKERENTITYTYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, UpgradedShulkerMod.MOD_ID + ":shulker", FabricBlockEntityTypeBuilder.create(UpgradedShulkerBlockEntity::new, boxes.toArray(new UpgradedShulkerBlock[0])).build(null));
 
         BlockPlacementDispenserBehavior dispenseBehavior = new BlockPlacementDispenserBehavior();
         for(UpgradedShulkerBlock box : boxes) {

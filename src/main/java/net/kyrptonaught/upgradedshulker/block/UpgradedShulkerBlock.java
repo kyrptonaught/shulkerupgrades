@@ -2,6 +2,8 @@ package net.kyrptonaught.upgradedshulker.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kyrptonaught.shulkerutils.UpgradableShulker;
 import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
@@ -27,6 +29,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
@@ -36,7 +40,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -50,11 +53,12 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         super(color, blockSettings);
         this.material = upgradedshulkertype;
         String colorName = color != null ? color.getName() : "normal";
-        Registry.register(Registry.BLOCK, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), this);
+        Registry.register(Registries.BLOCK, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), this);
 
-        Item.Settings itemSettings = new Item.Settings().maxCount(1).group(UpgradedShulkerMod.GROUP);
+        Item.Settings itemSettings = new Item.Settings().maxCount(1);
         if (material == ShulkerUpgrades.MATERIAL.NETHERITE) itemSettings = itemSettings.fireproof();
-        Registry.register(Registry.ITEM, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), new BlockItem(this, itemSettings));
+        Registry.register(Registries.ITEM, new Identifier("us", colorName + upgradedshulkertype.name + "shulker"), new BlockItem(this, itemSettings));
+        ItemGroupEvents.modifyEntriesEvent(UpgradedShulkerMod.GROUP).register(this::appendStacks);
     }
 
     @Override
@@ -67,14 +71,14 @@ public class UpgradedShulkerBlock extends ShulkerBoxBlock implements UpgradedShu
         return world.isClient & type == ShulkersRegistry.UPGRADEDSHULKERENTITYTYPE ? (world1, pos, state1, blockEntity) -> ShulkerBoxBlockEntity.tick(world, pos, state, (ShulkerBoxBlockEntity) blockEntity) : null;
     }
 
-    @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> list) {
+
+    private void appendStacks(FabricItemGroupEntries entries) {
         ItemStack shulkerStack = new ItemStack(this);
-        list.add(shulkerStack.copy());
+        entries.add(shulkerStack.copy());
         for (ShulkerUpgrades.UPGRADES upgrade : material.getApplicableUpgrades()) {
             ItemStack upgradedStack = shulkerStack.copy();
             upgrade.putOnStack(upgradedStack);
-            list.add(upgradedStack);
+            entries.add(upgradedStack);
         }
     }
 

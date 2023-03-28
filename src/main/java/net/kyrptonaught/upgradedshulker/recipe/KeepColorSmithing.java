@@ -8,21 +8,20 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.SmithingRecipe;
+import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 
-public class KeepColorSmithing extends SmithingRecipe {
+public class KeepColorSmithing extends LegacySmithingRecipe {
     public KeepColorSmithing(Identifier id, Ingredient base, Ingredient addition, ItemStack result) {
         super(id, base, addition, result);
     }
 
-    public ItemStack craft(Inventory inv) {
-        ItemStack output = this.getOutput().copy();
+    @Override
+    public ItemStack craft(Inventory inv, DynamicRegistryManager registryManager) {
+        ItemStack output = this.getOutput(registryManager).copy();
         ItemStack shulker = inv.getStack(0);
         ShulkerUpgrades.MATERIAL type = ((UpgradedShulkerBlock) Block.getBlockFromItem(output.getItem())).material;
         DyeColor color = ((UpgradedShulkerBlock) Block.getBlockFromItem(shulker.getItem())).getColor();
@@ -52,7 +51,7 @@ public class KeepColorSmithing extends SmithingRecipe {
         }
 
         public void write(PacketByteBuf packetByteBuf, KeepColorSmithing smithingRecipe) {
-            SmithingRecipe.Serializer.SMITHING.write(packetByteBuf, smithingRecipe);
+            LegacySmithingRecipe.Serializer.SMITHING.write(packetByteBuf, smithingRecipe);
         }
     }
 }

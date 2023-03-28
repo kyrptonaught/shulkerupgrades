@@ -15,10 +15,7 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.ShapelessRecipe;
-import net.minecraft.recipe.SmithingRecipe;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
@@ -51,14 +48,14 @@ public class UpgradedShulkersREIPlugin implements REIClientPlugin {
 
     private void registerUpgradesRecipe(DisplayRegistry recipeHelper, ItemStack output) {
         for (ShulkerUpgrades.UPGRADES upgrade : ShulkerUpgrades.UPGRADES.values()) {
-            SmithingRecipe recipe = new SmithingRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), Ingredient.ofStacks(output), Ingredient.ofItems(upgrade.craftingItem), upgrade.putOnStack(output.copy()));
+            LegacySmithingRecipe recipe = new LegacySmithingRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), Ingredient.ofStacks(output), Ingredient.ofItems(upgrade.craftingItem), upgrade.putOnStack(output.copy()));
             recipeHelper.add(new DefaultSmithingDisplay(recipe));
         }
     }
 
     private void registerTierUpRecipe(DisplayRegistry recipeHelper, ShulkerUpgrades.MATERIAL material, DyeColor color, ItemStack output) {
         if (material == ShulkerUpgrades.MATERIAL.NETHERITE) {
-            SmithingRecipe recipe = new SmithingRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), Ingredient.ofItems(ShulkersRegistry.getShulkerBlock(ShulkerUpgrades.MATERIAL.DIAMOND, color)), Ingredient.ofItems(Items.NETHERITE_INGOT), output);
+            LegacySmithingRecipe recipe = new LegacySmithingRecipe(new Identifier(UpgradedShulkerMod.MOD_ID, "upgradeshulkertier"), Ingredient.ofItems(ShulkersRegistry.getShulkerBlock(ShulkerUpgrades.MATERIAL.DIAMOND, color)), Ingredient.ofItems(Items.NETHERITE_INGOT), output);
             recipeHelper.add(new DefaultSmithingDisplay(recipe));
             return;
         }

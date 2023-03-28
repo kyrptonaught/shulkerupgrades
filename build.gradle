@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
+	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -42,17 +42,17 @@ dependencies {
 	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
 	include 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
 
-	modImplementation 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
-	include 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
+	modImplementation 'net.kyrptonaught:kyrptconfig:1.5.2-1.19.4'
+	include 'net.kyrptonaught:kyrptconfig:1.5.2-1.19.4'
 
 	//Quickshulker
-	modImplementation 'net.kyrptonaught:quickshulker:1.3.9-1.19'
+	modImplementation 'net.kyrptonaught:quickshulker:1.3.10-1.19.4'
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.592"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.592"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.592"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:11.0.597"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:11.0.597"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:11.0.597"
 
-	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.4+1.19.3")
+	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.5+1.19.4")
 }
 
 processResources {

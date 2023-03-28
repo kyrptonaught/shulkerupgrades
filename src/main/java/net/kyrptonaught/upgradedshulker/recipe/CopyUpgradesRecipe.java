@@ -13,17 +13,19 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 public class CopyUpgradesRecipe extends ShapedRecipe {
 
     public CopyUpgradesRecipe(ShapedRecipe shapedRecipe) {
-        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID,  CraftingRecipeCategory.EQUIPMENT, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getOutput());
+        super(shapedRecipe.getId(), UpgradedShulkerMod.MOD_ID,  CraftingRecipeCategory.EQUIPMENT, shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getOutput(null));
     }
 
-    public ItemStack craft(CraftingInventory craftingInventory) {
-        ItemStack output = this.getOutput().copy();
+    @Override
+    public ItemStack craft(CraftingInventory craftingInventory, DynamicRegistryManager dynamicRegistryManager) {
+        ItemStack output = this.getOutput(dynamicRegistryManager).copy();
         ItemStack shulker = craftingInventory.getStack(4);
         ShulkerUpgrades.MATERIAL type = ((UpgradedShulkerBlock) Block.getBlockFromItem(output.getItem())).material;
         DyeColor color = ((ShulkerBoxBlock) Block.getBlockFromItem(shulker.getItem())).getColor();

@@ -5,20 +5,19 @@ import net.kyrptonaught.upgradedshulker.util.ShulkerUpgrades;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.SmithingRecipe;
+import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 
-public class AddUpgradeRecipe extends SmithingRecipe {
+public class AddUpgradeRecipe extends LegacySmithingRecipe {
     public AddUpgradeRecipe(Identifier id, Ingredient base, Ingredient addition, ItemStack result) {
         super(id, base, addition, result);
     }
 
-    public ItemStack craft(Inventory inv) {
+    @Override
+    public ItemStack craft(Inventory inv, DynamicRegistryManager registryManager) {
         ItemStack output = inv.getStack(0).copy();
         output.setCount(1);
         for (ShulkerUpgrades.UPGRADES upgrade : ShulkerUpgrades.UPGRADES.values())
@@ -54,7 +53,7 @@ public class AddUpgradeRecipe extends SmithingRecipe {
         }
 
         public void write(PacketByteBuf packetByteBuf, AddUpgradeRecipe smithingRecipe) {
-            SmithingRecipe.Serializer.SMITHING.write(packetByteBuf, smithingRecipe);
+            LegacySmithingRecipe.Serializer.SMITHING.write(packetByteBuf, smithingRecipe);
         }
     }
 }

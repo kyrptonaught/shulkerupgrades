@@ -5,12 +5,13 @@ import net.kyrptonaught.upgradedshulker.UpgradedShulkerMod;
 import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.block.blockentity.UpgradedShulkerBlockEntity;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.Material;
 import net.minecraft.block.dispenser.BlockPlacementDispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.DyeColor;
@@ -61,11 +62,7 @@ public class ShulkersRegistry {
                 return shulkerBoxBlockEntity.suffocates();
             }
         };
-        AbstractBlock.Settings settings;
-        if (color == null)
-            settings = AbstractBlock.Settings.of(Material.SHULKER_BOX);
-        else
-            settings = AbstractBlock.Settings.of(Material.SHULKER_BOX, color);
+        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.SHULKER_BOX);
         return new UpgradedShulkerBlock(type, color, settings.strength(2.0F, type == ShulkerUpgrades.MATERIAL.NETHERITE ? 1200 : 2).dynamicBounds().nonOpaque().suffocates(contextPredicate).blockVision(contextPredicate));
     }
 }

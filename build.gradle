@@ -42,17 +42,17 @@ dependencies {
 	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
 	include 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
 
-	modImplementation 'net.kyrptonaught:kyrptconfig:1.5.2-1.19.4'
-	include 'net.kyrptonaught:kyrptconfig:1.5.2-1.19.4'
+	modImplementation "net.kyrptonaught:kyrptconfig:${project.kyrptconfig_version}"
+	include "net.kyrptonaught:kyrptconfig:${project.kyrptconfig_version}"
 
 	//Quickshulker
-	modImplementation 'net.kyrptonaught:quickshulker:1.3.10-1.19.4'
+	modImplementation "net.kyrptonaught:quickshulker:${project.quickshulker_version}"
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:11.0.597"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:11.0.597"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:11.0.597"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
 
-	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:3.2.5+1.19.4")
+	modCompileOnly modRuntimeOnly("com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_tooltip_version}")
 }
 
 processResources {

@@ -6,6 +6,7 @@ import net.kyrptonaught.upgradedshulker.block.UpgradedShulkerBlock;
 import net.kyrptonaught.upgradedshulker.util.ShulkersRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
@@ -21,7 +22,7 @@ public class DyeShulkerRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World world) {
+    public boolean matches(RecipeInputInventory inv, World world) {
         int shulkers = 0, dye = 0;
         for (int i = 0; i < inv.size(); i++)
             if (Block.getBlockFromItem(inv.getStack(i).getItem()) instanceof UpgradedShulkerBlock)
@@ -32,7 +33,7 @@ public class DyeShulkerRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory inv, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager dynamicRegistryManager) {
         ItemStack shulkerStack = ItemStack.EMPTY;
         ItemStack dyeStack = ItemStack.EMPTY;
         for (int i = 0; i < inv.size(); i++)

@@ -31,16 +31,13 @@
     "quickshulker": [
       "net.kyrptonaught.upgradedshulker.compat.Quickshulker"
     ],
-    "rei_client": [
-      "net.kyrptonaught.upgradedshulker.compat.UpgradedShulkersREIPlugin"
-    ],
     "shulkerboxtooltip": [
       "net.kyrptonaught.upgradedshulker.compat.shulkertooltip.ShulkerTooltip"
     ]
   },
   "accessWidener": "upgradedshulkers.accesswidener",
   "depends": {
-    "fabricloader": ">=0.12.5",
+    "fabricloader": ">=0.14.25",
     "fabric": "*",
     "java": ">=17"
   }
